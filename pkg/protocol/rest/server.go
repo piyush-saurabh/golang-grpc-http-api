@@ -24,10 +24,10 @@ func RunServer(ctx context.Context, grpcPort, httpPort string) error {
 
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 
-	// If request is gRPC, create a gRPC client and make request to gRPC server running on the localhost
-	// multiplexer and gRPC service will be part of same binary
+	// On receiving HTTP request, reate a gRPC client and make request to gRPC server running on the localhost
+	// gateway and gRPC service will be part of same binary
 	if err := v1.RegisterToDoServiceHandlerFromEndpoint(ctx, mux, "localhost:"+grpcPort, opts); err != nil {
-		log.Fatalf("failed to register gRPC gateway: %v", err)
+		log.Fatalf("failed to start HTTP gateway: %v", err)
 	}
 
 	// Serve the HTTP endpoint

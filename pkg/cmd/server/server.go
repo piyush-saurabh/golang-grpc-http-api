@@ -75,7 +75,9 @@ func RunServer() error {
 
 	v1API := v1.NewToDoServiceServer(db)
 
-	// Start the gateway (multiplexer)
+	// Start the HTTP gateway
+	// This gateway will listen on HTTP port
+	// gRPC service port is passed to make gRPC call from gateway to the service
 	go func() {
 		_ = rest.RunServer(ctx, cfg.GRPCPort, cfg.HTTPPort)
 	}()
