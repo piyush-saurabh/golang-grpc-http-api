@@ -19,7 +19,7 @@ func RunServer(ctx context.Context, grpcPort, httpPort string) error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	// Create a multiplexer to handle HTTP and gRPC traffic
+	// Create a HTTP request router/multiplexer to handle route based on URL path
 	mux := runtime.NewServeMux()
 
 	opts := []grpc.DialOption{grpc.WithInsecure()}
