@@ -26,6 +26,7 @@ func RunServer(ctx context.Context, grpcPort, httpPort string) error {
 
 	// On receiving HTTP request, make a HTTP/2 call to gRPC server running on the localhost
 	// HTTP gateway and gRPC service will be part of same binary
+	// RegisterToDoServiceHandlerFromEndpoint is the HTTP/REST handler created automatically grpc-gateway
 	if err := v1.RegisterToDoServiceHandlerFromEndpoint(ctx, mux, "localhost:"+grpcPort, opts); err != nil {
 		log.Fatalf("failed to register gRPC handler: %v", err)
 	}
