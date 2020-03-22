@@ -75,7 +75,7 @@ func RunServer(ctx context.Context, grpcPort, httpPort string) error {
 	// Create a HTTP request router/multiplexer to handle route based on URL path
 	mux := runtime.NewServeMux()
 
-  // Create the gRPC client to make call to gRPC server
+  	// Create the gRPC client to make call to gRPC server
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 
 	// On receiving HTTP request, make a HTTP/2 call to gRPC server running on the localhost (if they are the part of same binary)
@@ -89,20 +89,7 @@ func RunServer(ctx context.Context, grpcPort, httpPort string) error {
 		Addr:    ":" + httpPort,
 		Handler: mux,
 	}
-
-	// graceful shutdown
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-	go func() {
-		for range c {
-			// sig is a ^C, handle it
-		}
-		_, cancel := context.WithTimeout(ctx, 5*time.Second)
-		defer cancel()
-
-		_ = srv.Shutdown(ctx)
-	}()
-  // Start the HTTP Listener
+ 	 // Start the HTTP Listener
 	return srv.ListenAndServe()
 }
 ```
