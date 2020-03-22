@@ -101,7 +101,7 @@ ctx := context.Background()
 
 // Start HTTP server as a goroutine
 go func() {
-		_ = rest.RunServer(ctx, cfg.GRPCPort, cfg.HTTPPort)
+	_ = rest.RunServer(ctx, cfg.GRPCPort, cfg.HTTPPort)
 }()
 server := grpc.NewServer()
 v1.RegisterToDoServiceServer(server, v1API)
